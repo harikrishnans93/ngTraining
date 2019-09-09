@@ -1,9 +1,9 @@
-<app-header></app-header>
+<app-header (menuClicked)="navigate($event)"></app-header>
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <app-recipe></app-recipe>
-      <app-shoppinglist></app-shoppinglist>
+      <app-recipe *ngIf="feature==='Recipe'"></app-recipe>
+      <app-shoppinglist *ngIf="feature==='ShoppingList'"></app-shoppinglist>
     </div>
   </div>
 </div>
