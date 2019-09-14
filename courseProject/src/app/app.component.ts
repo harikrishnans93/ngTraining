@@ -11,9 +11,7 @@ export class AppComponent implements OnInit {
 
   }
   feature = '';
-  navigate( menuitem: string ) {
-    this.feature = menuitem;
-  }
+
   ngOnInit() {
 
   }
