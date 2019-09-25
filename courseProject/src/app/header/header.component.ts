@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { DataStorageService } from '../shared/data-storage.service';
 
 @Component({
   selector: 'app-header',
@@ -7,14 +8,22 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   @Output() menuClicked = new EventEmitter();
-  constructor() { }
+  constructor(private dataStorageservice:DataStorageService) { }
 
   ngOnInit() {
   }
+
   onRecipeClick() {
     this.menuClicked.emit('Recipe');
   }
   onShoppinglistClick() {
     this.menuClicked.emit('ShoppingList');
+  }
+
+  storeData(){
+    this.dataStorageservice.storeRecipie();
+  }
+  fetchData(){
+    this.dataStorageservice.fetchRecipe();
   }
 }
