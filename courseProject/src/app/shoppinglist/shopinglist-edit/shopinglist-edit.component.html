@@ -4,15 +4,16 @@
             <div class="row">
                 <div class="col-sm-5 form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" ngModel name="name" required >
-                   
+                    <input type="text" class="form-control" id="name" ngModel name="name" required #name="ngModel">
+                   <!-- <span class="alert alert-warning" *ngIf="!name.valid && name.touched"> Name is required</span> -->
                 </div>
                 <div class="col-sm-2 form-group">
                     <label for="amount">Amount</label>
                     <input type="number" class="form-control" id="amount" ngModel name="amount" required
                     pattern="^[1-9]+[0-9]*$"
+                    #amount="ngModel"
                     >
-                    
+                    <!-- <span class="alert alert-waring" *ngIf="!amount.valid && amount.touched"> Amount is required</span> -->
                 </div>
             </div>
             <div class="row">

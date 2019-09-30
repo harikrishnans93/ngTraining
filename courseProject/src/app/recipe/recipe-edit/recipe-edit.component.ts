@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeService } from '../recipe.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -19,5 +20,13 @@ export class RecipeEditComponent implements OnInit {
     }
     );
   }
+  onAddClick(form: NgForm) {
+    console.log(form.value);
+  }
+  onDelete(form: NgForm) {
 
+  }
+  onClear(form: NgForm) {
+
+  }
 }

@@ -1,16 +1,20 @@
 import { Injectable, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { RecipeService } from '../recipe/recipe.service';
+import { AuthServiceService } from '../auth-service/auth-service.service';
+import { take, exhaustMap } from 'rxjs/operators';
+import { Recipe } from '../recipe/recipe.model';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService implements OnInit {
-    constructor(private http: HttpClient, private recipies: RecipeService) {
+    constructor(private http: HttpClient, private recipies: RecipeService, private authService: AuthServiceService) {
 
 
     }
+    // tslint:disable-next-line: contextual-lifecycle
     ngOnInit(): void {
-        //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-        //Add 'implements OnInit' to the class.
+        // Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+        // Add 'implements OnInit' to the class.
 
     }
     storeRecipie() {
@@ -19,9 +23,15 @@ export class DataStorageService implements OnInit {
             console.log(Response);
         });
     }
-    fetchRecipe(){
-        this.http.get('https://courseproject-86241.firebaseio.com/recipies.json').subscribe(Response=>{
-            console.log(Response);
-        })
+    fetchRecipe() {
+       return this.authService.user.pipe(take(1), exhaustMap(userdata => {
+
+           return this.http.get<Recipe[]>('https://courseproject-86241.firebaseio.com/recipies.json', {
+                params: new HttpParams().set('auth', userdata.token)
+            });
+        }));
+    }
+    private handleToken() {
+        return this.authService.user.pipe(take(1)).subscribe();
     }
 }

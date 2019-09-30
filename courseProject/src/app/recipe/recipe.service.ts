@@ -22,4 +22,7 @@ export class RecipeService {
   addToShoppingList(ingredients: Ingredient[]) {
     this.shoppinglistService.addIngredients(ingredients);
   }
+  addRecipe(recipe: Recipe) {
+
+  }
 }
