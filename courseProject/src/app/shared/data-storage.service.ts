@@ -24,12 +24,24 @@ export class DataStorageService implements OnInit {
         });
     }
     fetchRecipe() {
-       return this.authService.user.pipe(take(1), exhaustMap(userdata => {
-
-           return this.http.get<Recipe[]>('https://courseproject-86241.firebaseio.com/recipies.json', {
+        return this.authService.user.pipe(take(1), exhaustMap(userdata => {
+            return this.http.get<Recipe[]>('https://courseproject-86241.firebaseio.com/recipies.json', {
                 params: new HttpParams().set('auth', userdata.token)
             });
         }));
+    }
+
+    loadRecipeData() {
+        const res = this.recipies.getRecipies();
+        if (res.length > 0) {
+            return;
+        }
+       
+        this.fetchRecipe().subscribe(ResponseData => {
+            console.log(ResponseData);
+            this.recipies.addRecipes(ResponseData);
+        });
+        console.log(this.recipies.getRecipies());
     }
     private handleToken() {
         return this.authService.user.pipe(take(1)).subscribe();

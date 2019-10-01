@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/cor
 import { DataStorageService } from '../shared/data-storage.service';
 import { AuthServiceService } from '../auth-service/auth-service.service';
 import { Subscription } from 'rxjs';
+import { RecipeService } from '../recipe/recipe.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
   @Output() menuClicked = new EventEmitter();
 
-  constructor(private dataStorageservice: DataStorageService, private authService: AuthServiceService) { }
+  constructor(private dataStorageservice: DataStorageService,
+              private authService: AuthServiceService,
+              private recipeService: RecipeService) { }
 
   ngOnInit() {
     this.usersub = this.authService.user.subscribe(user => {
@@ -32,9 +35,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dataStorageservice.storeRecipie();
   }
   fetchData() {
-    this.dataStorageservice.fetchRecipe().subscribe(res=>{
-      console.log(res);
-    });
+    this.dataStorageservice.loadRecipeData();
   }
   onLoggingOut() {
 
