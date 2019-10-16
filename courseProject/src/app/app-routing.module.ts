@@ -9,7 +9,7 @@ import { AuthServiceComponent } from './auth-service/auth-service.component';
 
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: '/recipe', pathMatch: 'full' },
+    { path: '', redirectTo: '/shoppingList', pathMatch: 'full' },
     {
         path: 'recipe', component: RecipeComponent, children: [
             { path: '', component: NoRecipeComponent },

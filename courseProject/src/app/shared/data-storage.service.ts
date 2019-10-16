@@ -34,9 +34,9 @@ export class DataStorageService implements OnInit {
     loadRecipeData() {
         const res = this.recipies.getRecipies();
         if (res.length > 0) {
-            return;
+            this.recipies.fetchSubject();
         }
-       
+
         this.fetchRecipe().subscribe(ResponseData => {
             console.log(ResponseData);
             this.recipies.addRecipes(ResponseData);

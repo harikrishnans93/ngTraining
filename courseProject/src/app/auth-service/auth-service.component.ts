@@ -34,7 +34,8 @@ export class AuthServiceComponent implements OnInit {
     }
     authobs.subscribe(responseData => {
       console.log(responseData);
-      this.router.navigate(['/recipe']);
+
+      this.router.navigate(['/shoppingList']);
     }, errorData => {
       console.log(errorData);
       this.error = errorData;

@@ -3,7 +3,6 @@ import { Recipe } from './recipe.model';
 import { ShoppinglistService } from '../shoppinglist/shoppinglist.service';
 import { Ingredient } from '../shared/ingredient.model';
 import { Subject } from 'rxjs';
-import { DataStorageService } from '../shared/data-storage.service';
 
 @Injectable()
 export class RecipeService {
@@ -25,6 +24,11 @@ export class RecipeService {
   }
   addRecipes(recipe: Recipe[]) {
     this.recipes.push(...recipe);
+    console.log(recipe, 'RE');
+    console.log(this.recipes.slice(), 'arr');
+    this.recipiesAdded.next(this.recipes.slice());
+  }
+  fetchSubject(){
     this.recipiesAdded.next(this.recipes.slice());
   }
 }
