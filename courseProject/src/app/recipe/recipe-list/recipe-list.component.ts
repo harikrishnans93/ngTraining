@@ -11,7 +11,7 @@ import { DataStorageService } from 'src/app/shared/data-storage.service';
   styleUrls: ['./recipe-list.component.css']
 })
 export class RecipeListComponent implements OnInit, OnDestroy {
-  recipes: Recipe[];
+  recipes: Recipe[]=[];
   recipesub = new Subscription();
   // tslint:disable-next-line: max-line-length
   constructor(private recipeService: RecipeService, private router: Router, private route: ActivatedRoute, private datasService: DataStorageService) {
@@ -20,7 +20,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
       console.log(this.recipes, 'REcipesssscon');
       this.recipes = recipies;
     });
-    datasService.loadRecipeData();
+    //datasService.loadRecipeData();
   }
 
   ngOnInit() {
@@ -30,7 +30,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
       console.log(this.recipes, 'REcipessss');
       this.recipes = recipies;
     });
-    this.datasService.loadRecipeData();
+    //this.datasService.loadRecipeData();
   }
   ngOnDestroy() {
     this.recipesub.unsubscribe();
@@ -43,5 +43,6 @@ export class RecipeListComponent implements OnInit, OnDestroy {
       this.recipes = recipies;
     });
     this.datasService.loadRecipeData();
+    console.log(this.recipes);
   }
 }
