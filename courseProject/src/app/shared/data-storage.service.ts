@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { RecipeService } from '../recipe/recipe.service';
 import { AuthServiceService } from '../auth-service/auth-service.service';
-import { take, exhaustMap } from 'rxjs/operators';
+import { take, exhaustMap, map } from 'rxjs/operators';
 import { Recipe } from '../recipe/recipe.model';
 
 @Injectable({ providedIn: 'root' })
@@ -27,7 +27,13 @@ export class DataStorageService implements OnInit {
         return this.authService.user.pipe(take(1), exhaustMap(userdata => {
             return this.http.get<Recipe[]>('https://courseproject-86241.firebaseio.com/recipies.json', {
                 params: new HttpParams().set('auth', userdata.token)
-            });
+            }).pipe(map(recip => {
+                return recip.map(recs => {
+                    return {
+                        ...recs, ingredients: recs.ingredients ? recs.ingredients : []
+                    };
+                });
+            }));
         }));
     }
 

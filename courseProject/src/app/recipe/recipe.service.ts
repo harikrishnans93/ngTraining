@@ -24,8 +24,6 @@ export class RecipeService {
   }
   addRecipes(recipe: Recipe[]) {
     this.recipes.push(...recipe);
-    console.log(recipe, 'RE');
-    console.log(this.recipes.slice(), 'arr');
     this.recipiesAdded.next(this.recipes.slice());
   }
   fetchSubject(){

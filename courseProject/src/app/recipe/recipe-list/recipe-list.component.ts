@@ -15,22 +15,12 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   recipesub = new Subscription();
   // tslint:disable-next-line: max-line-length
   constructor(private recipeService: RecipeService, private router: Router, private route: ActivatedRoute, private datasService: DataStorageService) {
-
-    this.recipesub = this.recipeService.recipiesAdded.subscribe((recipies: Recipe[]) => {
-      console.log(this.recipes, 'REcipesssscon');
-      this.recipes = recipies;
-    });
-    datasService.loadRecipeData();
   }
 
   ngOnInit() {
-    this.recipes = this.recipeService.getRecipies();
-    console.log('init');
     this.recipesub = this.recipeService.recipiesAdded.subscribe((recipies: Recipe[]) => {
-      console.log(this.recipes, 'REcipessss');
       this.recipes = recipies;
     });
-    this.datasService.loadRecipeData();
   }
   ngOnDestroy() {
     this.recipesub.unsubscribe();
