@@ -20,7 +20,9 @@ export class RecipeService {
     this.shoppinglistService.addIngredients(ingredients);
   }
   addRecipe(recipe: Recipe) {
-
+    recipe.id=this.recipes.length+1;
+    this.recipes.push(recipe);
+    this.recipiesAdded.next(this.recipes.slice());
   }
   addRecipes(recipe: Recipe[]) {
     this.recipes.push(...recipe);

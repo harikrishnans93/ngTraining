@@ -19,9 +19,10 @@ export class DataStorageService implements OnInit {
     }
     storeRecipie() {
         const rec = this.recipies.getRecipies();
-        this.http.put('https://courseproject-86241.firebaseio.com/recipies.json', rec).subscribe(Response => {
-            console.log(Response);
-        });
+        return this.authService.user.pipe(take(1), exhaustMap(userdata => {
+        return this.http.put('https://courseproject-86241.firebaseio.com/recipies.json', rec,{
+            params: new HttpParams().set('auth', userdata.token)
+        })}));
     }
     fetchRecipe() {
         return this.authService.user.pipe(take(1), exhaustMap(userdata => {
